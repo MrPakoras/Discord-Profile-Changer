@@ -2,7 +2,7 @@
 # Takes images from a folder (eg. random image from your saved pictures folder) and sets it as your profile pic
 
 # v2 change log
-# Opens discord (if unopened) and automatically switches to application
+# Opens discord (if unopened) and automatically switches to application (incomplete)
 # gets average image colour and sets banner as colour
 
 import pyautogui, time, ctypes, math, pywinauto, re, os, random, mimetypes
@@ -58,13 +58,15 @@ def clickicon(icon_name):
 	icon = None
 	while icon is None:
 		icon = pyautogui.locateCenterOnScreen(f'images/{icon_name}.png', grayscale=True) # locates specified icon using screenshot
+		# 08/04/23 Weird bug where the images stopped being recognised, fixed by replacing the files with new screenshots
 
-	print(icon)
 	if icon_name == 'change':
 		pyautogui.click((icon[0]-50, icon[1]))
 	else:
 		pyautogui.click((icon[0], icon[1])) # clicks icon
 	time.sleep(1)
+
+	print(f'clicked {icon_name}')
 
 def pync(): # pynput click
 	time.sleep(0.1)
@@ -96,7 +98,7 @@ while True:
 		clickicon('addbar')
 		pyautogui.typewrite(newpp[0])
 		pyautogui.press("enter")
-		time.sleep(0.5)
+		time.sleep(2)
 
 		# Typing in image name
 		cursor = pyautogui.position()
@@ -105,7 +107,7 @@ while True:
 		pync()
 		pyautogui.typewrite(newpp[1])
 		pyautogui.press("enter")
-		time.sleep(0.5)
+		time.sleep(2)
 
 		# Applying profile pic
 		pdi.moveTo(round(res[0]*0.62),round(res[1]*0.72)) # apply button
